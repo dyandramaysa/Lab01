@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\.github",
+    "\\.github\\workflows",
+    "\\project_django",
+    "\\wishlist",
+    "\\wishlist\\templates"
+  ],
+  "PreviewInSolutionExplorer": false
+}
