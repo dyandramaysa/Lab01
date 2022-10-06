@@ -11,7 +11,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 # Manambahkan Cookies
 import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 
 # Create your views here.
@@ -29,6 +29,25 @@ def show_wishlist(request):
     'last_login': request.COOKIES['last_login'],
     }
     return render(request, "wishlist.html", context)
+
+# Lab 5
+@login_required(login_url='/wishlist/login/')
+def show_ajax(request):
+    context = {
+        'list_barang': data_barang_wishlist,
+        'nama': 'Nadira Maysa Dyandra',
+        'last_login': request.COOKIES['last_login'],
+    }
+    return render(request, "wishlist_ajax.html", context)
+
+def add_wishlist_ajax(request):
+    if request.method == 'POST':
+        nama_barang = request.POST.get('nama_barang')
+        harga_barang = request.POST.get('harga_barang')
+        deskripsi = request.POST.get('deskripsi')
+        item = BarangWishlist(nama_barang=nama_barang, harga_barang=harga_barang, deskripsi=deskripsi)
+        item.save()
+        return JsonResponse({"instance": "Proyek Dibuat"}, status=200)
 
 # Tutorial Lab02
 data = BarangWishlist.objects.all()
